@@ -1,11 +1,9 @@
-version: "3.8"
-
 services:
   app:
     build: .
     command: bin/rails server -b 0.0.0.0
     volumes:
-      - .:/app
+      - .:/app:cached
       - bundle_cache:/usr/local/bundle
     ports:
       - "3000:3000"
@@ -17,7 +15,10 @@ services:
       DB_USERNAME: postgres
       DB_PASSWORD: password
       DB_NAME: desafio_cnab_development
-
+    develop:
+      watch:
+        - action: rebuild
+          path: .
   db:
     image: postgres:16
     restart: always
