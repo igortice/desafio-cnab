@@ -15,6 +15,7 @@ services:
       DB_USERNAME: postgres
       DB_PASSWORD: password
       DB_NAME: desafio_cnab_development
+      SELENIUM_REMOTE_URL: "http://selenium:4444/wd/hub"
     develop:
       watch:
         - action: rebuild
@@ -30,6 +31,14 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+
+  selenium:
+    image: selenium/standalone-chromium:latest
+    shm_size: 2g
+    ports:
+      - "4444:4444"
+      - "5900:5900"
+      - "7900:7900"
 
 volumes:
   bundle_cache:
